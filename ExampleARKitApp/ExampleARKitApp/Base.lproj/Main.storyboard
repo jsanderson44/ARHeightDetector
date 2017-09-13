@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="ExampleARKitApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dx0-CX-OCj"/>
+                        <viewControllerLayoutGuide type="bottom" id="tSa-s6-8H7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W1r-vC-qND">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuI-c7-TYd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance: ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02b-rC-lYl">
+                                <rect key="frame" x="16" y="28" width="125" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUS-NJ-Ggi">
+                                <rect key="frame" x="299" y="28" width="54" height="32"/>
+                                <color key="backgroundColor" red="0.91764706370000004" green="0.3960784376" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="Obu-vl-Ix3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapReset" destination="BV1-FR-VrT" eventType="touchUpInside" id="LXQ-pj-3TM"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Equ-OO-5YY">
+                                <rect key="frame" x="173" y="332.5" width="30" height="2"/>
+                                <color key="backgroundColor" red="0.91764706370000004" green="0.3960784376" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="N36-wq-Y5I"/>
+                                    <constraint firstAttribute="width" constant="30" id="bZ1-kg-Qiv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3r-q2-oST">
+                                <rect key="frame" x="186.5" y="318.5" width="2" height="30"/>
+                                <color key="backgroundColor" red="0.91764706370000004" green="0.3960784376" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="2" id="tMt-5I-XgN"/>
+                                    <constraint firstAttribute="height" constant="30" id="tnX-yO-7AB"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iac-EU-P8l">
+                                <rect key="frame" x="156" y="579" width="64" height="44"/>
+                                <color key="backgroundColor" red="0.91764706370000004" green="0.3960784376" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Nrx-L0-ZmF"/>
+                                    <constraint firstAttribute="height" constant="44" id="vXP-5n-xk7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <state key="normal" title="ADD">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapAdd" destination="BV1-FR-VrT" eventType="touchUpInside" id="mYp-Lv-BdZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GUS-NJ-Ggi" firstAttribute="top" secondItem="dx0-CX-OCj" secondAttribute="bottom" constant="8" id="1Ue-my-vF2"/>
+                            <constraint firstItem="tSa-s6-8H7" firstAttribute="top" secondItem="wuI-c7-TYd" secondAttribute="bottom" id="1k2-EP-Qs1"/>
+                            <constraint firstItem="Equ-OO-5YY" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="5bb-kN-t4s"/>
+                            <constraint firstItem="02b-rC-lYl" firstAttribute="top" secondItem="dx0-CX-OCj" secondAttribute="bottom" constant="8" id="GX4-Ch-qys"/>
+                            <constraint firstItem="iac-EU-P8l" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="P7P-zB-ska"/>
+                            <constraint firstItem="tSa-s6-8H7" firstAttribute="top" secondItem="iac-EU-P8l" secondAttribute="bottom" constant="44" id="QJB-Op-jQ3"/>
+                            <constraint firstItem="Equ-OO-5YY" firstAttribute="centerY" secondItem="W1r-vC-qND" secondAttribute="centerY" id="TRg-PT-6AN"/>
+                            <constraint firstItem="02b-rC-lYl" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" constant="16" id="Y8W-zm-LKl"/>
+                            <constraint firstAttribute="trailing" secondItem="GUS-NJ-Ggi" secondAttribute="trailing" constant="22" id="YIi-SG-qfe"/>
+                            <constraint firstItem="e3r-q2-oST" firstAttribute="centerY" secondItem="W1r-vC-qND" secondAttribute="centerY" id="ZIv-Yy-jPd"/>
+                            <constraint firstItem="wuI-c7-TYd" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" id="eLx-CO-ZQs"/>
+                            <constraint firstAttribute="trailing" secondItem="wuI-c7-TYd" secondAttribute="trailing" id="hY6-EH-eof"/>
+                            <constraint firstItem="e3r-q2-oST" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="wXu-vK-XC6"/>
+                            <constraint firstItem="wuI-c7-TYd" firstAttribute="top" secondItem="W1r-vC-qND" secondAttribute="top" id="z5d-dO-caB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addButton" destination="iac-EU-P8l" id="Blp-VG-gkV"/>
+                        <outlet property="distanceLabel" destination="02b-rC-lYl" id="Qq3-d4-h6J"/>
+                        <outlet property="sceneView" destination="wuI-c7-TYd" id="7m3-AL-5en"/>
+                        <outlet property="view" destination="W1r-vC-qND" id="GA3-kG-pRi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="120.98950524737631"/>
+        </scene>
+    </scenes>
+</document>
