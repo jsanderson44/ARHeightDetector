@@ -17,6 +17,7 @@
 		91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A271F696E3100D42DC1 /* CylinderLine.swift */; };
 		91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */; };
 		91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFB2721F6A70880092221E /* UIView+Additions.swift */; };
+		D4BC38281F6A89160088436A /* SCNNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC38271F6A89160088436A /* SCNNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		91BB6A271F696E3100D42DC1 /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
 		91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Additions.swift"; sourceTree = "<group>"; };
 		91CFB2721F6A70880092221E /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
+		D4BC38271F6A89160088436A /* SCNNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */,
 				91CFB2721F6A70880092221E /* UIView+Additions.swift */,
 				91BB6A271F696E3100D42DC1 /* CylinderLine.swift */,
+				D4BC38271F6A89160088436A /* SCNNode.swift */,
 				915ED48D1F66EEB700A58DA5 /* Main.storyboard */,
 				915ED4901F66EEB700A58DA5 /* Assets.xcassets */,
 				915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */,
@@ -157,6 +160,7 @@
 				91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */,
 				91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */,
 				91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */,
+				D4BC38281F6A89160088436A /* SCNNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

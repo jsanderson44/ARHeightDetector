@@ -26,6 +26,8 @@ class ViewController: UIViewController {
   
   fileprivate var shouldAddVerticalOffset: Bool = false
   
+  fileprivate var worldCoord: SCNVector3?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     sceneView.delegate = self
@@ -177,6 +179,14 @@ class ViewController: UIViewController {
     }
     
     try? VNImageRequestHandler(ciImage: image).perform([facesRequest])
+    
+    if let worldCoord = self.worldCoord {
+      
+      let node = SCNNode(position: worldCoord)
+      
+      self.sceneView.scene.rootNode.addChildNode(node)
+      node.show()
+    }
   }
   
   func drawVisionRequestResults(_ results: [VNFaceObservation]) {
@@ -186,6 +196,8 @@ class ViewController: UIViewController {
         self.instructionLabel.hideViewWithAnimation()
         self.stopPollingForFaceDetection()
       }
+      
+      
     }
     
 //    let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.view.frame.height)
@@ -197,6 +209,7 @@ class ViewController: UIViewController {
 //      self.drawView(around: facebounds)
       let boundingBox = self.transformBoundingBox(face.boundingBox)
       guard let worldCoord = self.normalizeWorldCoord(boundingBox) else { return }
+      self.worldCoord = worldCoord
       drawNodeAround(worldCoord: worldCoord, boundingBox: boundingBox)
   }
   
