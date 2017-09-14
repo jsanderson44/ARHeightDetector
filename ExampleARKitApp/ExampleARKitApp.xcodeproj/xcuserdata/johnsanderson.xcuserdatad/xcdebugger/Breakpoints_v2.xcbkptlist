@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExampleARKitApp/ViewController.swift"
-            timestampString = "527074600.246762"
+            timestampString = "527078260.702691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "drawNodeAround(worldCoord:boundingBox:)"
             landmarkType = "7">
          </BreakpointContent>

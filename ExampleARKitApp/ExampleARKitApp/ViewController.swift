@@ -19,12 +19,10 @@ class ViewController: UIViewController {
   @IBOutlet fileprivate var instructionLabel: UILabel!
   
   fileprivate var planes: [ARPlaneAnchor : SCNNode] = [:]
-  fileprivate var squareNodes: [SCNNode] = []
+  fileprivate var squareNode: SCNNode?
   fileprivate var cylinderNode: CylinderLine?
   fileprivate var currentFaceView: UIView?
   fileprivate var pollingTimer: Timer?
-  
-  fileprivate var shouldAddVerticalOffset: Bool = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -58,15 +56,14 @@ class ViewController: UIViewController {
   }
   
   @IBAction fileprivate func didTapReset() {
-    distanceLabel.text = "Distance: ?"
-    shouldAddVerticalOffset = false
+    distanceLabel.text = "Height: ?"
     addButton.isEnabled = true
     addButton.backgroundColor = UIColor(red: 234 / 256, green: 101 / 256, blue: 0 / 256, alpha: 1)
     
-    for node in squareNodes {
+    if let node = squareNode {
       node.removeFromParentNode()
     }
-    squareNodes.removeAll()
+    squareNode = nil
     
     if let node = cylinderNode {
       node.removeFromParentNode()
@@ -93,8 +90,6 @@ class ViewController: UIViewController {
         self.pollingTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.startFaceTracking), userInfo: nil, repeats: true)
       }
     }
-    
-//    pollingTimer?.fire()
   }
   
   fileprivate func stopPollingForFaceDetection() {
@@ -107,31 +102,17 @@ class ViewController: UIViewController {
     
     node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
     node.physicsBody?.mass = 2.0
-    
-    let verticalOffset: Float = shouldAddVerticalOffset ? 0.5 : 0
-    
     node.position = SCNVector3Make(
       hitResult.worldTransform.columns.3.x,
-      hitResult.worldTransform.columns.3.y + verticalOffset,
+      hitResult.worldTransform.columns.3.y,
       hitResult.worldTransform.columns.3.z
     )
     
-    squareNodes.append(node)
+    squareNode = node
     sceneView.scene.rootNode.addChildNode(node)
-    shouldAddVerticalOffset = true
     
-    if squareNodes.count == 2 {
-      addButton.isEnabled = false
-      addButton.backgroundColor = UIColor.lightGray
-      
-      let distance = node.position.verticalDistance(endPosition: (squareNodes.first?.position)!)
-      let distanceString = String(format: "%.2f", distance)
-      distanceLabel.text = "Distance: \(distanceString)m"
-      
-      cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: node.position, v2: (squareNodes.first?.position)!, radius: 0.001, radSegmentCount: 6, color: .red)
-      sceneView.scene.rootNode.addChildNode(cylinderNode!)
-    }
-    
+    addButton.isEnabled = false
+    addButton.backgroundColor = UIColor.lightGray
   }
   
   func createPlaneNode(anchor: ARPlaneAnchor) -> SCNNode {
@@ -182,6 +163,7 @@ class ViewController: UIViewController {
   func drawVisionRequestResults(_ results: [VNFaceObservation]) {
     print("Number of faces: \(results.count)")
     if results.count > 0 {
+      stopPollingForFaceDetection()
       DispatchQueue.main.async {
         self.instructionLabel.hideViewWithAnimation()
         self.stopPollingForFaceDetection()
@@ -209,8 +191,14 @@ class ViewController: UIViewController {
     sphereNode.position = SCNVector3Make(worldCoord.x, worldCoord.y, worldCoord.z)
     sceneView.scene.rootNode.addChildNode(sphereNode)
     
-    let distance = sphereNode.position.verticalDistance(endPosition: (planes.first?.value.position)!)
-    distanceLabel.text = "Height: \(distance)"
+    guard let squareNode = squareNode else { return }
+    let distance = sphereNode.position.verticalDistance(endPosition: squareNode.position)
+    let distanceString = String(format: "%.2f", distance)
+    distanceLabel.text = "Height: \(distanceString)m"
+    
+    let toVector = SCNVector3Make(sphereNode.position.x, squareNode.position.y, sphereNode.position.z)
+    cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.001, radSegmentCount: 6, color: .red)
+    sceneView.scene.rootNode.addChildNode(cylinderNode!)
   }
   
   func drawView(around rect: CGRect) {

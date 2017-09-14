@@ -23,8 +23,15 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuI-c7-TYd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance: ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02b-rC-lYl">
-                                <rect key="frame" x="16" y="28" width="125" height="29"/>
+                            <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnz-PQ-lgY">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="a42-8V-rbc"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height: ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02b-rC-lYl">
+                                <rect key="frame" x="16" y="28" width="101" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -99,6 +106,7 @@
                             <constraint firstItem="Equ-OO-5YY" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="5bb-kN-t4s"/>
                             <constraint firstItem="0Is-oZ-ga8" firstAttribute="top" secondItem="GUS-NJ-Ggi" secondAttribute="bottom" constant="16" id="AWK-uX-kHV"/>
                             <constraint firstItem="02b-rC-lYl" firstAttribute="top" secondItem="dx0-CX-OCj" secondAttribute="bottom" constant="8" id="GX4-Ch-qys"/>
+                            <constraint firstItem="Qnz-PQ-lgY" firstAttribute="top" secondItem="dx0-CX-OCj" secondAttribute="bottom" constant="-20" id="Gh8-kj-btg"/>
                             <constraint firstItem="0Is-oZ-ga8" firstAttribute="centerX" secondItem="wuI-c7-TYd" secondAttribute="centerX" id="IX6-Xs-Vp5"/>
                             <constraint firstItem="iac-EU-P8l" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="P7P-zB-ska"/>
                             <constraint firstItem="tSa-s6-8H7" firstAttribute="top" secondItem="iac-EU-P8l" secondAttribute="bottom" constant="44" id="QJB-Op-jQ3"/>
@@ -109,6 +117,8 @@
                             <constraint firstItem="wuI-c7-TYd" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" id="eLx-CO-ZQs"/>
                             <constraint firstAttribute="trailing" secondItem="wuI-c7-TYd" secondAttribute="trailing" id="hY6-EH-eof"/>
                             <constraint firstItem="0Is-oZ-ga8" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" constant="16" id="kxN-J6-m5F"/>
+                            <constraint firstAttribute="trailing" secondItem="Qnz-PQ-lgY" secondAttribute="trailing" id="p4t-fA-poX"/>
+                            <constraint firstItem="Qnz-PQ-lgY" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" id="vDy-Mv-Nbk"/>
                             <constraint firstItem="e3r-q2-oST" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="wXu-vK-XC6"/>
                             <constraint firstItem="wuI-c7-TYd" firstAttribute="top" secondItem="W1r-vC-qND" secondAttribute="top" id="z5d-dO-caB"/>
                         </constraints>
