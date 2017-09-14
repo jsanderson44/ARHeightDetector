@@ -85,7 +85,7 @@ class ViewController: UIViewController {
   fileprivate func startPollingForFaceDetection() {
     DispatchQueue.main.async {
       if self.instructionLabel.alpha == 0.0 {
-        self.instructionLabel.text = "Floor detected! Please focus on the face of the person you would like to measure!"
+        self.instructionLabel.text = "Complete! Please focus on the face of the person you would like to measure!"
         self.instructionLabel.showViewWithAnimation()
         self.pollingTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.startFaceTracking), userInfo: nil, repeats: true)
       }
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
   }
   
   fileprivate func insertGeomerty(_ hitResult: ARHitTestResult) {
-    let box = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0.0)
+    let box = SCNBox(width: 0.2, height: 0.0001, length: 0.2, chamferRadius: 0.0)
     let node = SCNNode(geometry: box)
     
     node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
@@ -113,6 +113,14 @@ class ViewController: UIViewController {
     
     addButton.isEnabled = false
     addButton.backgroundColor = UIColor.lightGray
+    
+    DispatchQueue.main.async {
+      if self.instructionLabel.alpha == 1.0 {
+        self.instructionLabel.hideViewWithAnimation()
+      }
+    }
+    
+    startPollingForFaceDetection()
   }
   
   func createPlaneNode(anchor: ARPlaneAnchor) -> SCNNode {
@@ -174,11 +182,11 @@ class ViewController: UIViewController {
     let topBoundingBox = CGRect(x: face.boundingBox.origin.x, y: face.boundingBox.origin.y + (face.boundingBox.height / 3), width: face.boundingBox.width, height: face.boundingBox.height)
     let boundingBox = self.transformBoundingBox(topBoundingBox)
     guard let worldCoord = self.normalizeWorldCoord(boundingBox) else { return }
-    drawNodeAround(worldCoord: worldCoord, boundingBox: boundingBox)
+    drawNodeAround(worldCoord: worldCoord)
   }
   
-  fileprivate func drawNodeAround(worldCoord: SCNVector3, boundingBox: CGRect) {
-    let sphere = SCNSphere(radius: 0.004)
+  fileprivate func drawNodeAround(worldCoord: SCNVector3) {
+    let sphere = SCNSphere(radius: 0.01)
     sphere.firstMaterial?.diffuse.contents = UIColor.gray
     let sphereNode = SCNNode(geometry: sphere)
     sphereNode.opacity = 0.6
@@ -192,7 +200,7 @@ class ViewController: UIViewController {
     distanceLabel.text = "Height: \(distanceString)m"
     
     let toVector = SCNVector3Make(sphereNode.position.x, squareNode.position.y, sphereNode.position.z)
-    cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.001, radSegmentCount: 6, color: .red)
+    cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.01, radSegmentCount: 4, color: .red)
     sceneView.scene.rootNode.addChildNode(cylinderNode!)
   }
   
@@ -278,15 +286,14 @@ extension ViewController: ARSCNViewDelegate {
     
     // ARKit owns the node corresponding to the anchor, so make the plane a child node.
     node.addChildNode(planeNode)
-    print("Added plane. Now starting face detection.")
     
     DispatchQueue.main.async {
       if self.instructionLabel.alpha == 1.0 {
         self.instructionLabel.hideViewWithAnimation()
+        self.instructionLabel.text = "Floor detected! Please place a reference point!"
+        self.instructionLabel.showViewWithAnimation()
       }
     }
-    
-    startPollingForFaceDetection()
   }
   
   func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
@@ -294,10 +301,7 @@ extension ViewController: ARSCNViewDelegate {
     
     // Remove existing plane nodes
     planes[planeAnchor]?.removeFromParentNode()
-    
-    
     let planeNode = createPlaneNode(anchor: planeAnchor)
-    
     node.addChildNode(planeNode)
   }
   
