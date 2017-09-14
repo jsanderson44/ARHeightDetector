@@ -15,8 +15,8 @@
 		915ED4941F66EEB700A58DA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */; };
 		91BB6A261F6967E400D42DC1 /* SCNVector3+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */; };
 		91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A271F696E3100D42DC1 /* CylinderLine.swift */; };
-		91BE39DA1F697F5900D086A4 /* ViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE39D91F697F5900D086A4 /* ViewController+ARSCNViewDelegate.swift */; };
 		91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */; };
+		91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFB2721F6A70880092221E /* UIView+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,8 @@
 		915ED4951F66EEB700A58DA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Additions.swift"; sourceTree = "<group>"; };
 		91BB6A271F696E3100D42DC1 /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
-		91BE39D91F697F5900D086A4 /* ViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
 		91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Additions.swift"; sourceTree = "<group>"; };
+		91CFB2721F6A70880092221E /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +67,9 @@
 				915ED4871F66EEB700A58DA5 /* AppDelegate.swift */,
 				915ED4891F66EEB700A58DA5 /* art.scnassets */,
 				915ED48B1F66EEB700A58DA5 /* ViewController.swift */,
-				91BE39D91F697F5900D086A4 /* ViewController+ARSCNViewDelegate.swift */,
 				91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */,
 				91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */,
+				91CFB2721F6A70880092221E /* UIView+Additions.swift */,
 				91BB6A271F696E3100D42DC1 /* CylinderLine.swift */,
 				915ED48D1F66EEB700A58DA5 /* Main.storyboard */,
 				915ED4901F66EEB700A58DA5 /* Assets.xcassets */,
@@ -155,7 +155,7 @@
 				91BB6A261F6967E400D42DC1 /* SCNVector3+Additions.swift in Sources */,
 				915ED4881F66EEB700A58DA5 /* AppDelegate.swift in Sources */,
 				91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */,
-				91BE39DA1F697F5900D086A4 /* ViewController+ARSCNViewDelegate.swift in Sources */,
+				91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */,
 				91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
