@@ -163,23 +163,18 @@ class ViewController: UIViewController {
   func drawVisionRequestResults(_ results: [VNFaceObservation]) {
     print("Number of faces: \(results.count)")
     if results.count > 0 {
-      stopPollingForFaceDetection()
+      stopPollingForFaceDetection() // TODO
       DispatchQueue.main.async {
         self.instructionLabel.hideViewWithAnimation()
         self.stopPollingForFaceDetection()
       }
     }
     
-//    let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.view.frame.height)
-//    let translate = CGAffineTransform.identity.scaledBy(x: self.view.frame.width, y: self.view.frame.height)
-    
     guard let face = results.first else { return }
-      // The coordinates are normalized to the dimensions of the processed image, with the origin at the image's lower-left corner.
-//      let facebounds = face.boundingBox.applying(translate).applying(transform)
-//      self.drawView(around: facebounds)
-      let boundingBox = self.transformBoundingBox(face.boundingBox)
-      guard let worldCoord = self.normalizeWorldCoord(boundingBox) else { return }
-      drawNodeAround(worldCoord: worldCoord, boundingBox: boundingBox)
+    let topBoundingBox = CGRect(x: face.boundingBox.origin.x, y: face.boundingBox.origin.y + (face.boundingBox.height / 3), width: face.boundingBox.width, height: face.boundingBox.height)
+    let boundingBox = self.transformBoundingBox(topBoundingBox)
+    guard let worldCoord = self.normalizeWorldCoord(boundingBox) else { return }
+    drawNodeAround(worldCoord: worldCoord, boundingBox: boundingBox)
   }
   
   fileprivate func drawNodeAround(worldCoord: SCNVector3, boundingBox: CGRect) {
@@ -199,24 +194,6 @@ class ViewController: UIViewController {
     let toVector = SCNVector3Make(sphereNode.position.x, squareNode.position.y, sphereNode.position.z)
     cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.001, radSegmentCount: 6, color: .red)
     sceneView.scene.rootNode.addChildNode(cylinderNode!)
-  }
-  
-  func drawView(around rect: CGRect) {
-    if let currentView = currentFaceView {
-      currentView.removeFromSuperview()
-    }
-    
-    let borderView = UIView()
-    borderView.frame = rect
-    
-    borderView.backgroundColor = .clear
-    borderView.layer.cornerRadius = 10
-    borderView.layer.borderColor = UIColor.red.cgColor
-    borderView.layer.borderWidth = 2.0
-    
-    currentFaceView = borderView
-    
-    view.addSubview(borderView)
   }
   
   /// In order to get stable vectors, we determine multiple coordinates within an interval.
