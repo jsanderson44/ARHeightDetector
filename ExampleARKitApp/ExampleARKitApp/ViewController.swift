@@ -21,6 +21,7 @@ class ViewController: UIViewController {
   fileprivate var planes: [ARPlaneAnchor : SCNNode] = [:]
   fileprivate var squareNode: SCNNode?
   fileprivate var cylinderNode: CylinderLine?
+  fileprivate var sphereNode: SCNNode?
   fileprivate var currentFaceView: UIView?
   fileprivate var pollingTimer: Timer?
   
@@ -60,26 +61,24 @@ class ViewController: UIViewController {
     addButton.isEnabled = true
     addButton.backgroundColor = UIColor(red: 234 / 256, green: 101 / 256, blue: 0 / 256, alpha: 1)
     
-    if let node = squareNode {
-      node.removeFromParentNode()
-    }
-    squareNode = nil
+    squareNode?.removeFromParentNode()
+    cylinderNode?.removeFromParentNode()
+    sphereNode?.removeFromParentNode()
     
-    if let node = cylinderNode {
-      node.removeFromParentNode()
-    }
+    squareNode = nil
+    cylinderNode = nil
+    sphereNode = nil
   }
   
   @IBAction fileprivate func didTapAdd() {
     let point = CGPoint(x: view.frame.origin.x + (view.frame.width / 2), y: view.frame.origin.y + (view.frame.height / 2))
-    //    let point = center.
     let result = sceneView.hitTest(point, types: .existingPlaneUsingExtent)
     if result.count == 0 {
       return
     }
     
-    let hitResult = result.first
-    insertGeomerty(hitResult!) //UNCOMMENT TO ADD NODES
+    guard let hitResult = result.first else { return }
+    insertReferenceNode(at: hitResult)
   }
   
   fileprivate func startPollingForFaceDetection() {
@@ -96,12 +95,10 @@ class ViewController: UIViewController {
     pollingTimer?.invalidate()
   }
   
-  fileprivate func insertGeomerty(_ hitResult: ARHitTestResult) {
+  fileprivate func insertReferenceNode(at hitResult: ARHitTestResult) {
     let box = SCNBox(width: 0.2, height: 0.0001, length: 0.2, chamferRadius: 0.0)
     let node = SCNNode(geometry: box)
-    
-    node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-    node.physicsBody?.mass = 2.0
+
     node.position = SCNVector3Make(
       hitResult.worldTransform.columns.3.x,
       hitResult.worldTransform.columns.3.y,
@@ -186,12 +183,15 @@ class ViewController: UIViewController {
   }
   
   fileprivate func drawNodeAround(worldCoord: SCNVector3) {
+    if (sphereNode != nil) { return }
+    
     let sphere = SCNSphere(radius: 0.01)
     sphere.firstMaterial?.diffuse.contents = UIColor.gray
-    let sphereNode = SCNNode(geometry: sphere)
-    sphereNode.opacity = 0.6
+    sphereNode = SCNNode(geometry: sphere)
+    sphereNode?.opacity = 0.6
+    sphereNode?.position = SCNVector3Make(worldCoord.x, worldCoord.y, worldCoord.z)
     
-    sphereNode.position = SCNVector3Make(worldCoord.x, worldCoord.y, worldCoord.z)
+    guard let sphereNode = sphereNode else { return }
     sceneView.scene.rootNode.addChildNode(sphereNode)
     
     guard let squareNode = squareNode else { return }
@@ -201,7 +201,9 @@ class ViewController: UIViewController {
     
     let toVector = SCNVector3Make(sphereNode.position.x, squareNode.position.y, sphereNode.position.z)
     cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.01, radSegmentCount: 4, color: .red)
-    sceneView.scene.rootNode.addChildNode(cylinderNode!)
+    cylinderNode?.opacity = 0.6
+    guard let cylinderNode = cylinderNode else { return }
+    sceneView.scene.rootNode.addChildNode(cylinderNode)
   }
   
   /// In order to get stable vectors, we determine multiple coordinates within an interval.

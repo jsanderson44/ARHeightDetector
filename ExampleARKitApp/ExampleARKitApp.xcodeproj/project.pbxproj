@@ -11,10 +11,10 @@
 		915ED48A1F66EEB700A58DA5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4891F66EEB700A58DA5 /* art.scnassets */; };
 		915ED48C1F66EEB700A58DA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915ED48B1F66EEB700A58DA5 /* ViewController.swift */; };
 		915ED48F1F66EEB700A58DA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915ED48D1F66EEB700A58DA5 /* Main.storyboard */; };
-		915ED4911F66EEB700A58DA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4901F66EEB700A58DA5 /* Assets.xcassets */; };
 		915ED4941F66EEB700A58DA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */; };
 		91BB6A261F6967E400D42DC1 /* SCNVector3+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */; };
 		91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A271F696E3100D42DC1 /* CylinderLine.swift */; };
+		91BD5C1A1F6AC46D00E7636B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4901F66EEB700A58DA5 /* Assets.xcassets */; };
 		91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */; };
 		91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFB2721F6A70880092221E /* UIView+Additions.swift */; };
 /* End PBXBuildFile section */
@@ -139,7 +139,7 @@
 			files = (
 				915ED48A1F66EEB700A58DA5 /* art.scnassets in Resources */,
 				915ED4941F66EEB700A58DA5 /* LaunchScreen.storyboard in Resources */,
-				915ED4911F66EEB700A58DA5 /* Assets.xcassets in Resources */,
+				91BD5C1A1F6AC46D00E7636B /* Assets.xcassets in Resources */,
 				915ED48F1F66EEB700A58DA5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,6 +186,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -243,6 +244,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
