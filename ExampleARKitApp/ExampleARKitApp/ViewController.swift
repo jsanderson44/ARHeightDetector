@@ -16,19 +16,23 @@ class ViewController: UIViewController {
   @IBOutlet fileprivate var sceneView: ARSCNView!
   @IBOutlet fileprivate var distanceLabel: UILabel!
   @IBOutlet fileprivate var addButton: UIButton!
+  @IBOutlet fileprivate var confirmButton: UIButton!
   @IBOutlet fileprivate var instructionLabel: UILabel!
+  @IBOutlet fileprivate var crosshairs: [UIView]!
   
   fileprivate var planes: [ARPlaneAnchor : SCNNode] = [:]
   fileprivate var squareNode: SCNNode?
   fileprivate var cylinderNode: CylinderLine?
   fileprivate var sphereNode: SCNNode?
   fileprivate var currentFaceView: UIView?
-  fileprivate var pollingTimer: Timer?
+  fileprivate var shouldPollForFaces: Bool = false
+  fileprivate var panGestureRecogniser: UIPanGestureRecognizer = UIPanGestureRecognizer()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     sceneView.delegate = self
     sceneView.showsStatistics = true
+    confirmButton.isHidden = true
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -53,21 +57,41 @@ class ViewController: UIViewController {
     // Run the view's session
     sceneView.session.run(configuration)
     sceneView.automaticallyUpdatesLighting = true
-    sceneView.debugOptions = [.showWireframe]
+    sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+    
+    // Update instruction label UI
+    instructionLabel.text = "Please move around your world to detect the floor"
   }
   
   @IBAction fileprivate func didTapReset() {
     distanceLabel.text = "Height: ?"
     addButton.isEnabled = true
-    addButton.backgroundColor = UIColor(red: 234 / 256, green: 101 / 256, blue: 0 / 256, alpha: 1)
+    addButton.backgroundColor = .defaultOrange
+    addButton.isHidden = false
+    confirmButton.isHidden = true
+    shouldPollForFaces = false
+    for view in crosshairs {
+      view.isHidden = false
+    }
+    
+    for plane in planes {
+      plane.value.removeFromParentNode()
+    }
+    planes.removeAll()
     
     squareNode?.removeFromParentNode()
     cylinderNode?.removeFromParentNode()
     sphereNode?.removeFromParentNode()
+    currentFaceView?.removeFromSuperview()
     
     squareNode = nil
     cylinderNode = nil
     sphereNode = nil
+    currentFaceView = nil
+    
+    sceneView.session.pause()
+    view.removeGestureRecognizer(panGestureRecogniser)
+    createAndStartNewSession()
   }
   
   @IBAction fileprivate func didTapAdd() {
@@ -77,28 +101,23 @@ class ViewController: UIViewController {
       return
     }
     
+    for view in crosshairs {
+      view.isHidden = true
+    }
+    
     guard let hitResult = result.first else { return }
     insertReferenceNode(at: hitResult)
   }
   
-  fileprivate func startPollingForFaceDetection() {
-    DispatchQueue.main.async {
-      if self.instructionLabel.alpha == 0.0 {
-        self.instructionLabel.text = "Complete! Please focus on the face of the person you would like to measure!"
-        self.instructionLabel.showViewWithAnimation()
-        self.pollingTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.startFaceTracking), userInfo: nil, repeats: true)
-      }
-    }
-  }
-  
-  fileprivate func stopPollingForFaceDetection() {
-    pollingTimer?.invalidate()
+  @IBAction fileprivate func didTapConfirm() {
+    didConfirmFace()
   }
   
   fileprivate func insertReferenceNode(at hitResult: ARHitTestResult) {
     let box = SCNBox(width: 0.2, height: 0.0001, length: 0.2, chamferRadius: 0.0)
+    box.firstMaterial?.diffuse.contents = UIColor.defaultOrange
     let node = SCNNode(geometry: box)
-
+    
     node.position = SCNVector3Make(
       hitResult.worldTransform.columns.3.x,
       hitResult.worldTransform.columns.3.y,
@@ -111,29 +130,22 @@ class ViewController: UIViewController {
     addButton.isEnabled = false
     addButton.backgroundColor = UIColor.lightGray
     
-    DispatchQueue.main.async {
-      if self.instructionLabel.alpha == 1.0 {
-        self.instructionLabel.hideViewWithAnimation()
-      }
-    }
+    shouldPollForFaces = true
     
-    startPollingForFaceDetection()
+    instructionLabel.text = "Please point the camera at the person you would like to measure!"
   }
   
   func createPlaneNode(anchor: ARPlaneAnchor) -> SCNNode {
     // Create a SceneKit plane to visualize the node using its position and extent.
     let plane = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
-    let material = SCNMaterial()
-    material.colorBufferWriteMask = []
-    plane.materials = [material]
-    
+    plane.setAndScaleTexture()
     let planeNode = SCNNode(geometry: plane)
+    planeNode.opacity = 0.3
     
     // SCNPlanes are vertically oriented in their local coordinate space.
     // Rotate it to match the horizontal orientation of the ARPlaneAnchor.
     planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
     planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
-    planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: plane, options: nil))
     planes[anchor] = planeNode
     
     return planeNode
@@ -167,118 +179,102 @@ class ViewController: UIViewController {
   
   func drawVisionRequestResults(_ results: [VNFaceObservation]) {
     print("Number of faces: \(results.count)")
-    if results.count > 0 {
-      stopPollingForFaceDetection() // TODO
-      DispatchQueue.main.async {
-        self.instructionLabel.hideViewWithAnimation()
-        self.stopPollingForFaceDetection()
-      }
+    if results.count == 0 {
+      currentFaceView?.removeFromSuperview()
     }
     
     guard let face = results.first else { return }
-    let topBoundingBox = CGRect(x: face.boundingBox.origin.x, y: face.boundingBox.origin.y + (face.boundingBox.height / 3), width: face.boundingBox.width, height: face.boundingBox.height)
-    let boundingBox = self.transformBoundingBox(topBoundingBox)
-    guard let worldCoord = self.normalizeWorldCoord(boundingBox) else { return }
-    drawNodeAround(worldCoord: worldCoord)
+    let boundingBox = self.transformBoundingBox(face.boundingBox)
+    didDetectFaceAt(boundingBox: boundingBox)
   }
   
-  fileprivate func drawNodeAround(worldCoord: SCNVector3) {
+  fileprivate func didDetectFaceAt(boundingBox: CGRect) {
     if (sphereNode != nil) { return }
     
+    drawFrame(around: boundingBox)
+    addButton.isHidden = true
+    confirmButton.isHidden = false
+    instructionLabel.text = "Face detected! Please confirm."
+  }
+  
+  fileprivate func drawFrame(around rect: CGRect) {
+    if let currentView = currentFaceView {
+      currentView.removeFromSuperview()
+    }
+    
+    let borderView = UIView()
+    borderView.frame = CGRect(x: rect.origin.x, y: rect.origin.y - (rect.height / 4), width: rect.width, height: rect.height*1.5)
+    
+    borderView.backgroundColor = .clear
+    borderView.layer.cornerRadius = 10
+    borderView.layer.borderColor = UIColor.defaultOrange.cgColor
+    borderView.layer.borderWidth = 2.0
+    
+    currentFaceView = borderView
+    
+    view.addSubview(borderView)
+  }
+  
+  
+  fileprivate func didConfirmFace() {
+    instructionLabel.text = "Thanks! Pan up or down to adjust the position!"
+    currentFaceView?.removeFromSuperview()
+    
+    guard let currentFaceFrame = currentFaceView?.frame else { return }
+    let boundingBox = CGRect(x: currentFaceFrame.midX, y: currentFaceFrame.minY, width: 0.1, height: 0.1)
+    guard let worldCoord = sceneView.determineWorldCoord(boundingBox) else { return }
     let sphere = SCNSphere(radius: 0.01)
-    sphere.firstMaterial?.diffuse.contents = UIColor.gray
-    sphereNode = SCNNode(geometry: sphere)
-    sphereNode?.opacity = 0.6
-    sphereNode?.position = SCNVector3Make(worldCoord.x, worldCoord.y, worldCoord.z)
+    sphere.firstMaterial?.diffuse.contents = UIColor.defaultOrange
+    let node = SCNNode(geometry: sphere)
+    node.position = worldCoord
     
-    guard let sphereNode = sphereNode else { return }
-    sceneView.scene.rootNode.addChildNode(sphereNode)
+    sceneView.scene.rootNode.addChildNode(node)
+    sphereNode = node
     
-    guard let squareNode = squareNode else { return }
+    calculateHeight()
+    
+    addPanGestureRecogniser()
+  }
+  
+  fileprivate func calculateHeight() {
+    guard let squareNode = squareNode,
+      let sphereNode = sphereNode else { return }
     let distance = sphereNode.position.verticalDistance(endPosition: squareNode.position)
     let distanceString = String(format: "%.2f", distance)
     distanceLabel.text = "Height: \(distanceString)m"
     
+    if let node = cylinderNode {
+      node.removeFromParentNode()
+    }
     let toVector = SCNVector3Make(sphereNode.position.x, squareNode.position.y, sphereNode.position.z)
-    cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.01, radSegmentCount: 4, color: .red)
-    cylinderNode?.opacity = 0.6
+    cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.005, radSegmentCount: 4, color: .defaultOrange)
     guard let cylinderNode = cylinderNode else { return }
     sceneView.scene.rootNode.addChildNode(cylinderNode)
   }
   
-  /// In order to get stable vectors, we determine multiple coordinates within an interval.
-  ///
-  /// - Parameters:
-  ///   - boundingBox: Rect of the face on the screen
-  /// - Returns: the normalized vector
-  private func normalizeWorldCoord(_ boundingBox: CGRect) -> SCNVector3? {
-    
-    var array: [SCNVector3] = []
-    Array(0...2).forEach{_ in
-      if let position = determineWorldCoord(boundingBox) {
-        array.append(position)
-      }
-      usleep(12000) // .012 seconds
-    }
-    
-    if array.isEmpty {
-      return nil
-    }
-    
-    return SCNVector3.center(array)
+  fileprivate func addPanGestureRecogniser()  {
+    panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(didPan(recogniser:)))
+    view.addGestureRecognizer(panGestureRecogniser)
   }
   
-  /// Determine the vector from the position on the screen.
-  ///
-  /// - Parameter boundingBox: Rect of the face on the screen
-  /// - Returns: the vector in the sceneView
-  private func determineWorldCoord(_ boundingBox: CGRect) -> SCNVector3? {
-    let arHitTestResults = sceneView.hitTest(CGPoint(x: boundingBox.midX, y: boundingBox.midY), types: [.featurePoint])
-    
-    // Filter results that are to close
-    if let closestResult = arHitTestResults.filter({ $0.distance > 0.10 }).first {
-      return SCNVector3.positionFromTransform(closestResult.worldTransform)
-    }
-    return nil
-  }
-  
-  /// Transform bounding box according to device orientation
-  ///
-  /// - Parameter boundingBox: of the face
-  /// - Returns: transformed bounding box
-  private func transformBoundingBox(_ boundingBox: CGRect) -> CGRect {
-    var size: CGSize
-    var origin: CGPoint
-    
-    switch UIDevice.current.orientation {
-    case .landscapeLeft:
-      size = CGSize(width: boundingBox.width * self.view.bounds.height,
-                    height: boundingBox.height * self.view.bounds.width)
-      origin = CGPoint(x: boundingBox.minY * self.view.bounds.width,
-                       y: boundingBox.minX * self.view.bounds.height)
-    case .landscapeRight:
-      size = CGSize(width: boundingBox.width * self.view.bounds.height,
-                    height: boundingBox.height * self.view.bounds.width)
-      origin = CGPoint(x: (1 - boundingBox.maxY) * self.view.bounds.width,
-                       y: (1 - boundingBox.maxX) * self.view.bounds.height)
-    case .portraitUpsideDown:
-      size = CGSize(width: boundingBox.width * self.view.bounds.width,
-                    height: boundingBox.height * self.view.bounds.height)
-      origin = CGPoint(x: (1 - boundingBox.maxX) * self.view.bounds.width,
-                       y: boundingBox.minY * self.view.bounds.height)
-    default:
-      size = CGSize(width: boundingBox.width * self.view.bounds.width,
-                    height: boundingBox.height * self.view.bounds.height)
-      origin = CGPoint(x: boundingBox.minX * self.view.bounds.width,
-                       y: (1 - boundingBox.maxY) * self.view.bounds.height)
-    }
-    
-    return CGRect(origin: origin, size: size)
+  @objc fileprivate func didPan(recogniser: UIPanGestureRecognizer) {
+    let translation = recogniser.translation(in: view)
+    guard let spherePosition = sphereNode?.position else { return }
+    sphereNode?.position = SCNVector3Make(spherePosition.x, spherePosition.y - Float(translation.y / 2000), spherePosition.z)
+    calculateHeight()
   }
 }
 
 // MARK: - ARSCNViewDelegate
 extension ViewController: ARSCNViewDelegate {
+  
+  func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+    if shouldPollForFaces {
+      DispatchQueue.main.async {
+        self.startFaceTracking()
+      }
+    }
+  }
   
   func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
     // This visualization covers only detected planes.
@@ -288,23 +284,19 @@ extension ViewController: ARSCNViewDelegate {
     
     // ARKit owns the node corresponding to the anchor, so make the plane a child node.
     node.addChildNode(planeNode)
-    
     DispatchQueue.main.async {
-      if self.instructionLabel.alpha == 1.0 {
-        self.instructionLabel.hideViewWithAnimation()
-        self.instructionLabel.text = "Floor detected! Please place a reference point!"
-        self.instructionLabel.showViewWithAnimation()
-      }
+      self.instructionLabel.text = "Floor detected! Please place a reference point!"
     }
   }
   
   func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-    guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+    guard let planeAnchor = anchor as? ARPlaneAnchor,
+    let plane = planes[planeAnchor] else { return }
     
-    // Remove existing plane nodes
-    planes[planeAnchor]?.removeFromParentNode()
-    let planeNode = createPlaneNode(anchor: planeAnchor)
-    node.addChildNode(planeNode)
+    let newPlane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+    newPlane.setAndScaleTexture()
+    plane.geometry = newPlane
+    plane.position = SCNVector3Make(planeAnchor.center.x, 0, planeAnchor.center.y)
   }
   
   func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {

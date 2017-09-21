@@ -7,19 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		915B78BE1F6FD49800A4C999 /* ARSCNView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915B78BD1F6FD49800A4C999 /* ARSCNView+Additions.swift */; };
+		915B78C01F6FD54800A4C999 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915B78BF1F6FD54800A4C999 /* UIViewController+Additions.swift */; };
+		915B78C51F70227500A4C999 /* SCNPlane+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915B78C41F70227500A4C999 /* SCNPlane+Additions.swift */; };
 		915ED4881F66EEB700A58DA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915ED4871F66EEB700A58DA5 /* AppDelegate.swift */; };
 		915ED48A1F66EEB700A58DA5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4891F66EEB700A58DA5 /* art.scnassets */; };
 		915ED48C1F66EEB700A58DA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915ED48B1F66EEB700A58DA5 /* ViewController.swift */; };
 		915ED48F1F66EEB700A58DA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915ED48D1F66EEB700A58DA5 /* Main.storyboard */; };
 		915ED4941F66EEB700A58DA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */; };
+		9186797F1F6FBEA3007112F0 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186797E1F6FBEA3007112F0 /* UIColor+Additions.swift */; };
 		91BB6A261F6967E400D42DC1 /* SCNVector3+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */; };
 		91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A271F696E3100D42DC1 /* CylinderLine.swift */; };
 		91BD5C1A1F6AC46D00E7636B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4901F66EEB700A58DA5 /* Assets.xcassets */; };
 		91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */; };
-		91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFB2721F6A70880092221E /* UIView+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		915B78BD1F6FD49800A4C999 /* ARSCNView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Additions.swift"; sourceTree = "<group>"; };
+		915B78BF1F6FD54800A4C999 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
+		915B78C41F70227500A4C999 /* SCNPlane+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNPlane+Additions.swift"; sourceTree = "<group>"; };
 		915ED4841F66EEB700A58DA5 /* ExampleARKitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleARKitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915ED4871F66EEB700A58DA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		915ED4891F66EEB700A58DA5 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -28,10 +34,10 @@
 		915ED4901F66EEB700A58DA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		915ED4931F66EEB700A58DA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		915ED4951F66EEB700A58DA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9186797E1F6FBEA3007112F0 /* UIColor+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Additions.swift"; sourceTree = "<group>"; };
 		91BB6A271F696E3100D42DC1 /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
 		91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Additions.swift"; sourceTree = "<group>"; };
-		91CFB2721F6A70880092221E /* UIView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		915B78C11F6FD5A400A4C999 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */,
+				91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */,
+				9186797E1F6FBEA3007112F0 /* UIColor+Additions.swift */,
+				915B78BD1F6FD49800A4C999 /* ARSCNView+Additions.swift */,
+				915B78BF1F6FD54800A4C999 /* UIViewController+Additions.swift */,
+				915B78C41F70227500A4C999 /* SCNPlane+Additions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		915B78C21F6FD5CC00A4C999 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				915ED4891F66EEB700A58DA5 /* art.scnassets */,
+				915ED4901F66EEB700A58DA5 /* Assets.xcassets */,
+				915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */,
+				915ED4951F66EEB700A58DA5 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		915ED47B1F66EEB700A58DA5 = {
 			isa = PBXGroup;
 			children = (
@@ -65,16 +95,11 @@
 			isa = PBXGroup;
 			children = (
 				915ED4871F66EEB700A58DA5 /* AppDelegate.swift */,
-				915ED4891F66EEB700A58DA5 /* art.scnassets */,
-				915ED48B1F66EEB700A58DA5 /* ViewController.swift */,
-				91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */,
-				91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */,
-				91CFB2721F6A70880092221E /* UIView+Additions.swift */,
 				91BB6A271F696E3100D42DC1 /* CylinderLine.swift */,
+				915B78C11F6FD5A400A4C999 /* Helpers */,
 				915ED48D1F66EEB700A58DA5 /* Main.storyboard */,
-				915ED4901F66EEB700A58DA5 /* Assets.xcassets */,
-				915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */,
-				915ED4951F66EEB700A58DA5 /* Info.plist */,
+				915B78C21F6FD5CC00A4C999 /* Resources */,
+				915ED48B1F66EEB700A58DA5 /* ViewController.swift */,
 			);
 			path = ExampleARKitApp;
 			sourceTree = "<group>";
@@ -151,12 +176,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				915B78C51F70227500A4C999 /* SCNPlane+Additions.swift in Sources */,
 				915ED48C1F66EEB700A58DA5 /* ViewController.swift in Sources */,
 				91BB6A261F6967E400D42DC1 /* SCNVector3+Additions.swift in Sources */,
 				915ED4881F66EEB700A58DA5 /* AppDelegate.swift in Sources */,
+				915B78BE1F6FD49800A4C999 /* ARSCNView+Additions.swift in Sources */,
+				915B78C01F6FD54800A4C999 /* UIViewController+Additions.swift in Sources */,
 				91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */,
-				91CFB2731F6A70880092221E /* UIView+Additions.swift in Sources */,
 				91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */,
+				9186797F1F6FBEA3007112F0 /* UIColor+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +324,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VG9R2N57GC;
-				INFOPLIST_FILE = ExampleARKitApp/Info.plist;
+				INFOPLIST_FILE = ExampleARKitApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TAB.ExampleARKitApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -310,7 +338,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VG9R2N57GC;
-				INFOPLIST_FILE = ExampleARKitApp/Info.plist;
+				INFOPLIST_FILE = ExampleARKitApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TAB.ExampleARKitApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

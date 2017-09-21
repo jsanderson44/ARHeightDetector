@@ -23,7 +23,7 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuI-c7-TYd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnz-PQ-lgY">
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnz-PQ-lgY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -97,6 +97,26 @@
                                 <color key="textColor" red="0.91764706370000004" green="0.3960784376" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOV-Wo-wJx">
+                                <rect key="frame" x="146" y="579" width="84" height="44"/>
+                                <color key="backgroundColor" red="0.91764706370000004" green="0.3960784376" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="wcf-jX-Rr6"/>
+                                    <constraint firstAttribute="width" constant="84" id="y0G-IA-wgv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapConfirm" destination="BV1-FR-VrT" eventType="touchUpInside" id="c7l-Uh-mKx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -114,7 +134,9 @@
                             <constraint firstItem="02b-rC-lYl" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" constant="16" id="Y8W-zm-LKl"/>
                             <constraint firstAttribute="trailing" secondItem="GUS-NJ-Ggi" secondAttribute="trailing" constant="22" id="YIi-SG-qfe"/>
                             <constraint firstItem="e3r-q2-oST" firstAttribute="centerY" secondItem="W1r-vC-qND" secondAttribute="centerY" id="ZIv-Yy-jPd"/>
+                            <constraint firstItem="FOV-Wo-wJx" firstAttribute="centerX" secondItem="W1r-vC-qND" secondAttribute="centerX" id="cQf-lE-5H8"/>
                             <constraint firstItem="wuI-c7-TYd" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" id="eLx-CO-ZQs"/>
+                            <constraint firstItem="tSa-s6-8H7" firstAttribute="top" secondItem="FOV-Wo-wJx" secondAttribute="bottom" constant="44" id="h9Z-tb-uhO"/>
                             <constraint firstAttribute="trailing" secondItem="wuI-c7-TYd" secondAttribute="trailing" id="hY6-EH-eof"/>
                             <constraint firstItem="0Is-oZ-ga8" firstAttribute="leading" secondItem="W1r-vC-qND" secondAttribute="leading" constant="16" id="kxN-J6-m5F"/>
                             <constraint firstAttribute="trailing" secondItem="Qnz-PQ-lgY" secondAttribute="trailing" id="p4t-fA-poX"/>
@@ -125,10 +147,13 @@
                     </view>
                     <connections>
                         <outlet property="addButton" destination="iac-EU-P8l" id="Blp-VG-gkV"/>
+                        <outlet property="confirmButton" destination="FOV-Wo-wJx" id="gk5-DI-zql"/>
                         <outlet property="distanceLabel" destination="02b-rC-lYl" id="Qq3-d4-h6J"/>
                         <outlet property="instructionLabel" destination="0Is-oZ-ga8" id="2Nq-VO-e6l"/>
                         <outlet property="sceneView" destination="wuI-c7-TYd" id="7m3-AL-5en"/>
                         <outlet property="view" destination="W1r-vC-qND" id="GA3-kG-pRi"/>
+                        <outletCollection property="crosshairs" destination="Equ-OO-5YY" collectionClass="NSMutableArray" id="xI3-w6-4U2"/>
+                        <outletCollection property="crosshairs" destination="e3r-q2-oST" collectionClass="NSMutableArray" id="Q3O-0o-gOf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
