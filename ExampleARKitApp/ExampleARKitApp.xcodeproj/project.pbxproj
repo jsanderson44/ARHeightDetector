@@ -17,7 +17,7 @@
 		915ED4941F66EEB700A58DA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4921F66EEB700A58DA5 /* LaunchScreen.storyboard */; };
 		9186797F1F6FBEA3007112F0 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186797E1F6FBEA3007112F0 /* UIColor+Additions.swift */; };
 		91BB6A261F6967E400D42DC1 /* SCNVector3+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */; };
-		91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A271F696E3100D42DC1 /* CylinderLine.swift */; };
+		91BB6A281F696E3100D42DC1 /* MeasuringTape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BB6A271F696E3100D42DC1 /* MeasuringTape.swift */; };
 		91BD5C1A1F6AC46D00E7636B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915ED4901F66EEB700A58DA5 /* Assets.xcassets */; };
 		91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */; };
 /* End PBXBuildFile section */
@@ -36,7 +36,7 @@
 		915ED4951F66EEB700A58DA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9186797E1F6FBEA3007112F0 /* UIColor+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		91BB6A251F6967E400D42DC1 /* SCNVector3+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Additions.swift"; sourceTree = "<group>"; };
-		91BB6A271F696E3100D42DC1 /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
+		91BB6A271F696E3100D42DC1 /* MeasuringTape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuringTape.swift; sourceTree = "<group>"; };
 		91BE39DB1F69860D00D086A4 /* CIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				915ED4871F66EEB700A58DA5 /* AppDelegate.swift */,
-				91BB6A271F696E3100D42DC1 /* CylinderLine.swift */,
+				91BB6A271F696E3100D42DC1 /* MeasuringTape.swift */,
 				915B78C11F6FD5A400A4C999 /* Helpers */,
 				915ED48D1F66EEB700A58DA5 /* Main.storyboard */,
 				915B78C21F6FD5CC00A4C999 /* Resources */,
@@ -183,7 +183,7 @@
 				915B78BE1F6FD49800A4C999 /* ARSCNView+Additions.swift in Sources */,
 				915B78C01F6FD54800A4C999 /* UIViewController+Additions.swift in Sources */,
 				91BE39DC1F69860D00D086A4 /* CIImage+Additions.swift in Sources */,
-				91BB6A281F696E3100D42DC1 /* CylinderLine.swift in Sources */,
+				91BB6A281F696E3100D42DC1 /* MeasuringTape.swift in Sources */,
 				9186797F1F6FBEA3007112F0 /* UIColor+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

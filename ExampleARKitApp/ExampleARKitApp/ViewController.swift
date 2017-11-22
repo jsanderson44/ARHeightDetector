@@ -22,7 +22,7 @@ class ViewController: UIViewController {
   
   fileprivate var planes: [ARPlaneAnchor : SCNNode] = [:]
   fileprivate var squareNode: SCNNode?
-  fileprivate var cylinderNode: CylinderLine?
+  fileprivate var measuringTape: MeasuringTape?
   fileprivate var sphereNode: SCNNode?
   fileprivate var currentFaceView: UIView?
   fileprivate var shouldPollForFaces: Bool = false
@@ -80,12 +80,12 @@ class ViewController: UIViewController {
     planes.removeAll()
     
     squareNode?.removeFromParentNode()
-    cylinderNode?.removeFromParentNode()
+    measuringTape?.removeFromParentNode()
     sphereNode?.removeFromParentNode()
     currentFaceView?.removeFromSuperview()
     
     squareNode = nil
-    cylinderNode = nil
+    measuringTape = nil
     sphereNode = nil
     currentFaceView = nil
     
@@ -243,13 +243,13 @@ class ViewController: UIViewController {
     let distanceString = String(format: "%.2f", distance)
     distanceLabel.text = "Height: \(distanceString)m"
     
-    if let node = cylinderNode {
+    if let node = measuringTape {
       node.removeFromParentNode()
     }
     let toVector = SCNVector3Make(sphereNode.position.x, squareNode.position.y, sphereNode.position.z)
-    cylinderNode = CylinderLine(parent: sceneView.scene.rootNode, v1: sphereNode.position, v2: toVector, radius: 0.005, radSegmentCount: 4, color: .defaultOrange)
-    guard let cylinderNode = cylinderNode else { return }
-    sceneView.scene.rootNode.addChildNode(cylinderNode)
+    measuringTape = MeasuringTape(parent: sceneView.scene.rootNode, startPoint: sphereNode.position, endPoint: toVector)
+    guard let measuringTape = measuringTape else { return }
+    sceneView.scene.rootNode.addChildNode(measuringTape)
   }
   
   fileprivate func addPanGestureRecogniser()  {
